@@ -77,7 +77,6 @@ void printOptions(char *array[], int array_length, FILE *f_ptr) {
     fclose(f_ptr);
     f_ptr = fopen(array[getFile(array, array_length)], "rb");
     printf("%d ", countChars(f_ptr));
-    fseek(f_ptr, 0, SEEK_SET);
   }
 }
 
@@ -92,6 +91,12 @@ int main(int argv_length, char *argv[]) {
 
   if (argv_length > 2) {
     printOptions(argv, argv_length, file_pointer);
+    printf("%s\n", argv[getFile(argv, argv_length)]);
+  } else if (argv_length == 2) {
+    argv[2] = "-c";
+    argv[3] = "-l";
+    argv[4] = "-w";
+    printOptions(argv, argv_length + 3, file_pointer);
     printf("%s\n", argv[getFile(argv, argv_length)]);
   }
 
