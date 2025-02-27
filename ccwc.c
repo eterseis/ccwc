@@ -81,7 +81,7 @@ void printOptions(char *array[], int array_length, FILE *f_ptr) {
   }
 }
 
-void PrintPipeOptions(char *argv[], int argv_length, FILE *f_ptr) {
+void printPipeOptions(char *argv[], int argv_length, FILE *f_ptr) {
   char *options[] = {"-l", "-w", "-c", "-m"};
   int options_length = sizeof(options) / 8;
   for (int i = 0; i < options_length; i++) {
@@ -118,7 +118,8 @@ int main(int argv_length, char *argv[]) {
     file_pointer = fopen(argv[fileIndex], "rb");
 
     if (file_pointer == NULL) {
-      return 6;
+      printf("-> Error: File not found\n");
+      return 1;
     }
 
     if (argv_length > 2) {
@@ -136,6 +137,7 @@ int main(int argv_length, char *argv[]) {
       fclose(file_pointer);
     }
   } else {
+    // reading from standard input
     FILE *ftmp;
     ftmp = fopen("/tmp/ccwctmp.txt", "w+");
     char ch;
@@ -144,17 +146,17 @@ int main(int argv_length, char *argv[]) {
     }
     rewind(ftmp);
     if (argv_length == 1) {
-      int bytes = countBytes(ftmp);
-      rewind(ftmp);
       int lines = countLines(ftmp);
+      rewind(ftmp);
+      int bytes = countBytes(ftmp);
       rewind(ftmp);
       int words = countWords(ftmp);
 
-      printf("\t%d\t%d\t%d\n", bytes, lines, words);
-      fclose(ftmp);
+      printf("\t%d\t%d\t%d\n", lines, words, bytes);
     } else if (argv_length > 1) {
-      PrintPipeOptions(argv, argv_length, ftmp);
+      printPipeOptions(argv, argv_length, ftmp);
     }
+    fclose(ftmp);
   }
   return 0;
 }
