@@ -5,8 +5,8 @@ Print newline, word, and byte counts.
 
 ccwc [OPTION]... [FILE]
 
-If no file is specified, read standard input.
-If no option provided, `ccwc` will print the newline, word, and byte counts.
+If no file is specified, read standard input.\
+If no option provided, `ccwc` will print the newline, word, and byte counts.\
 Written in C.
 
 ## How To Use
@@ -34,12 +34,13 @@ $ gcc ccwc.c -o ccwc
 - `-w` print the word counts
 
 ## Examples
-
-    $ ./ccwc -c README.md
+```bash
+$ ./ccwc -c README.md
     ->  993 README.md
 
-    $ cat README.md | ./ccwc
+$ cat README.md | ./ccwc
     ->  765     37      136
+```
 > Output Order -> newlines words bytes characters [filename]
 
 ## Credits
